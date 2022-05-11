@@ -25,14 +25,14 @@ trait HttpTrait
      *
      * @param string $method
      * @param string $uri
-     * @param array  $options
-     * @param array  $config
+     * @param array $options
+     * @param array $config
      *
-     * @throws GuzzleException
      * @return ResponseInterface
+     * @throws GuzzleException
      */
-    public function request(string $method = "", string $uri = "", array $options = [], array $config = []
-    ): ResponseInterface {
+    public function request(string $method = "", string $uri = "", array $options = [], array $config = []): ResponseInterface
+    {
         return $this->getClient($config)->request($method, $uri, $options);
     }
 
@@ -40,19 +40,18 @@ trait HttpTrait
      * Convert response contents to array.
      *
      * @param ResponseInterface $response
-     *
-     * @return array
+     * @return mixed|string
      */
-    protected function formatResponse(ResponseInterface $response): array
+    protected function formatResponse(ResponseInterface $response): mixed
     {
         $contentType = $response->getHeaderLine('Content-Type');
-        $contents    = $response->getBody()->getContents();
+        $contents = $response->getBody()->getContents();
         if (stripos($contentType, 'json') !== false) {
             return json_decode($contents, true);
         }
         if (stripos($contentType, 'xml') !== false) {
             return json_decode(json_encode(simplexml_load_string($contents)), true);
         }
-        return (array)$contents;
+        return $contents;
     }
 }

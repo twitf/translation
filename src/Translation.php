@@ -5,9 +5,11 @@ namespace Twitf\Translation;
 use Exception;
 use Twitf\Translation\Contracts\GatewayInterface;
 use Twitf\Translation\Gateways\AlibabaGateway;
+use Twitf\Translation\Gateways\SougouGateway;
 
 /**
  * @method static AlibabaGateway alibaba(array $config) Alibaba Translation
+ * @method static SougouGateway sougou(array $config) Sougou Translation
  */
 class Translation
 {
