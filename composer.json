@@ -20,7 +20,6 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^7.4",
-        "ext-json": "*",
-        "overtrue/easy-sms": "^2.1"
+        "ext-json": "*"
     }
 }
