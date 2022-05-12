@@ -17,7 +17,7 @@ abstract class Gateway implements GatewayInterface
     /**
      * @var array
      */
-    protected $config;
+    protected $config = [];
 
     /**
      * @var ResponseInterface

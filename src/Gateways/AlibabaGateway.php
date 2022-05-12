@@ -8,8 +8,8 @@ use GuzzleHttp\HandlerStack;
 
 class AlibabaGateway extends Gateway
 {
-    protected $uri     = "https://translate.alibaba.com/api/translate/text";
-    private   $csrfUri = "https://translate.alibaba.com/api/translate/csrftoken";
+    protected $uri = "https://translate.alibaba.com/api/translate/text";
+    private $csrfUri = "https://translate.alibaba.com/api/translate/csrftoken";
 
     /**
      * Get gateway name.
@@ -26,26 +26,26 @@ class AlibabaGateway extends Gateway
      *
      * @param array $params
      *
-     * @throws GuzzleException
      * @return AlibabaGateway
+     * @throws GuzzleException
      */
     public function translate(array $params = []): AlibabaGateway
     {
-        $csrf           = $this->getCsrf();
-        $options        = [
-            'headers'   => [
+        $csrf = $this->getCsrf();
+        $options = [
+            'headers' => [
                 $csrf['headerName'] => $csrf['token'],
-                'user-agent'        => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
+                'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
             ],
             'multipart' => [
-                ['name' => 'srcLang', 'contents' => 'auto',],
-                ['name' => 'tgtLang', 'contents' => 'en'],
+                ['name' => 'srcLang', 'contents' => $params['source'] ?? 'auto',],
+                ['name' => 'tgtLang', 'contents' => $params['target'] ?? 'en'],
                 ['name' => 'domain', 'contents' => 'general'],
                 ['name' => 'query', 'contents' => $params['query']],
                 ['name' => $csrf['parameterName'], 'contents' => $csrf['token']],
             ],
         ];
-        $response       = $this->request('POST', $this->uri, $options, $this->config);
+        $response = $this->request('POST', $this->uri, $options, $this->config);
         $this->response = $this->formatResponse($response);
         return $this;
     }
@@ -63,8 +63,8 @@ class AlibabaGateway extends Gateway
     /**
      * Get csrf token
      *
-     * @throws GuzzleException
      * @return array
+     * @throws GuzzleException
      */
     private function getCsrf(): array
     {

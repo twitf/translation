@@ -2,10 +2,8 @@
 
 namespace Twitf\Translation\Gateways;
 
-use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\GuzzleException;
 use Twitf\Translation\Contracts\GatewayInterface;
-use GuzzleHttp\HandlerStack;
 
 class SougouGateway extends Gateway
 {
@@ -18,7 +16,7 @@ class SougouGateway extends Gateway
      */
     public function getName(): string
     {
-        return 'alibaba';
+        return 'sougou';
     }
 
     /**
@@ -34,7 +32,6 @@ class SougouGateway extends Gateway
         $config         = $this->getCommonConfig();
         $options        = [
             'headers' => [
-                'cookies'     => CookieJar::fromArray($cookieArray, "merchant.wish.com"),
                 'User-Agent'   => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
             ],
             'json' => [

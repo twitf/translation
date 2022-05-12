@@ -8,17 +8,17 @@ use Twitf\Translation\Gateways\AlibabaGateway;
 use Twitf\Translation\Gateways\SougouGateway;
 
 /**
- * @method static AlibabaGateway alibaba(array $config) Alibaba Translation
- * @method static SougouGateway sougou(array $config) Sougou Translation
+ * @method static AlibabaGateway alibaba(array $config = []) Alibaba Translation
+ * @method static SougouGateway sougou(array $config = []) Sougou Translation
  */
 class Translation
 {
     /**
      * @param string $name
-     * @param array  $config
+     * @param array $config
      *
-     * @throws Exception
      * @return mixed
+     * @throws Exception
      */
     public static function make(string $name = "", array $config = [])
     {
@@ -39,8 +39,8 @@ class Translation
      * @param $name
      * @param $config
      *
-     * @throws Exception
      * @return mixed
+     * @throws Exception
      */
     public static function __callStatic($name, $config)
     {
