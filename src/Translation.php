@@ -37,14 +37,14 @@ class Translation
      * Dynamically pass methods to the Gateway.
      *
      * @param $name
-     * @param $arguments
+     * @param $config
      *
      * @throws Exception
      * @return mixed
      */
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic($name, $config)
     {
         // TODO: Implement __callStatic() method.
-        return self::make($name, ...$arguments);
+        return self::make($name, $config);
     }
 }

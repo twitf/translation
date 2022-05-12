@@ -39,7 +39,7 @@ abstract class Gateway implements GatewayInterface
      *
      * @param array $config
      */
-    public function __construct(array $config)
+    public function __construct(array $config = [])
     {
         $this->config = $config;
     }

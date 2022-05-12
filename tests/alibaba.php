@@ -8,7 +8,7 @@ use Twitf\Translation\Gateways\SougouGateway;
 use Twitf\Translation\Translation;
 
 try {
-    $alibaba = Translation::sougou(['timeout' => 5])->translate(['query' => '你好是大数据的卡上肯定就撒娇的 ']);
+    $alibaba = Translation::alibaba(['timeout' => 5])->translate(['query' => '你好是大数据的卡上肯定就撒娇的 ']);
     var_dump($alibaba->getDetect());
     var_dump($alibaba->getTranslation());
     die;

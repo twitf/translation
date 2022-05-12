@@ -2,6 +2,7 @@
 
 namespace Twitf\Translation\Gateways;
 
+use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\GuzzleException;
 use Twitf\Translation\Contracts\GatewayInterface;
 use GuzzleHttp\HandlerStack;
@@ -25,50 +26,30 @@ class SougouGateway extends Gateway
      *
      * @param array $params
      *
-     * @return AlibabaGateway
      * @throws GuzzleException
+     * @return SougouGateway
      */
-    public function translate(array $params = []): AlibabaGateway
+    public function translate(array $params = []): SougouGateway
     {
-//client: "pc"
-//exchange: false
-//fr: "browser_pc_medical"
-//from: "auto"
-//needQc: 1
-//s: "8c7c4644dce0b3af8b180512ab94207d"
-//text: "你"
-//to: "en"
-//uuid: "54554eab-a0d7-4b4c-91d6-9f2efb8f0945"
-//
-//
-//                                            "from": m,
-//                                        "to": h,
-//                                        "text": p,
-//                                        "client": "pc",
-//                                        "fr": I,
-//                                        "needQc": v,
-//                                        "s": D,
-//                                        "uuid": E,
-//                                        "exchange": S
-//
-//D = K.a.cal("".concat(m).concat(h).concat(p).concat(k)),
-        $options = [
+        $config         = $this->getCommonConfig();
+        $options        = [
             'headers' => [
-                'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
+                'cookies'     => CookieJar::fromArray($cookieArray, "merchant.wish.com"),
+                'User-Agent'   => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
             ],
             'json' => [
-                "from" => "auto",
-                "to" => "en",
-                "text" => $params['query'],
-                "client" => "pc",
-                "fr" => "browser_pc_medical",
-                "needQc" => "",
-                "s" => "",
-                "uuid" => "",
-                "exchange" => "false"
+                "from"     => $params['source'] ?? "auto",
+                "to"       => $params['target'] ?? "en",
+                "text"     => $params['query'],
+                "client"   => "pc",
+                "fr"       => "browser_pc",
+                "needQc"   => 1,
+                "s"        => $this->getSign($config, $params),
+                "uuid"     => $config['uuid'],
+                "exchange" => false,
             ],
         ];
-        $response = $this->request('POST', $this->uri, $options, $this->config);
+        $response       = $this->request('POST', $this->uri, $options, $this->config);
         $this->response = $this->formatResponse($response);
         return $this;
     }
@@ -80,19 +61,28 @@ class SougouGateway extends Gateway
      */
     public function getTranslation()
     {
-        return $this->response['data']['translateText'];
+        return $this->response;
     }
 
     /**
      * Get csrf token
      *
-     * @return array
      * @throws GuzzleException
+     * @return array
      */
-    private function getInitialState(): array
+    private function getCommonConfig(): array
     {
-        $content= $this->formatResponse($this->request('GET', $this->uri));
-//        SecretCode
+        $response = $this->request('GET', $this->uri);
+        $content  = $this->formatResponse($response);
+        preg_match('/(?<=__INITIAL_STATE__=)[^;]+/', $content, $matches);
+        $initialState = json_decode($matches[0], true);
+        return $initialState['common']['CONFIG'];
+    }
+
+    private function getSign(array $config = [], array $params = []): string
+    {
+        $reText = $params['source'] . $params['target'] . $params['query'] . $config['secretCode'];
+        return md5($reText);
     }
 
     /**
