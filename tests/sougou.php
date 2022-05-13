@@ -12,4 +12,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 
 $sougou = \Twitf\Translation\Translation::sougou()->translate(['source' => 'auto', 'target' => "en", 'query' => "查词好，翻译快！"]);
+var_dump($sougou->getDetect());
 var_dump($sougou->getTranslation());
+die;
