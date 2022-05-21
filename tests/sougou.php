@@ -10,8 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // $a=json_decode($arr[0],true);
 // var_dump($a['common']['CONFIG']);
 
-
-$sougou = \Twitf\Translation\Translation::sougou()->translate(['source' => 'auto', 'target' => "en", 'query' => "查词好，翻译快！"]);
+$sougou = \Twitf\Translation\Translation::sougou()->translate(['source' => 'auto', 'target' => "en", 'query' => "你真是个人才啊"]);
 var_dump($sougou->getDetect());
 var_dump($sougou->getTranslation());
 die;

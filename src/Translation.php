@@ -5,20 +5,22 @@ namespace Twitf\Translation;
 use Exception;
 use Twitf\Translation\Contracts\GatewayInterface;
 use Twitf\Translation\Gateways\AlibabaGateway;
+use Twitf\Translation\Gateways\BingGateway;
 use Twitf\Translation\Gateways\SougouGateway;
 
 /**
  * @method static AlibabaGateway alibaba(array $config = []) Alibaba Translation
  * @method static SougouGateway sougou(array $config = []) Sougou Translation
+ * @method static BingGateway bing(array $config = []) Bing Translation
  */
 class Translation
 {
     /**
      * @param string $name
-     * @param array $config
+     * @param array  $config
      *
-     * @return mixed
      * @throws Exception
+     * @return mixed
      */
     public static function make(string $name = "", array $config = [])
     {
@@ -39,8 +41,8 @@ class Translation
      * @param $name
      * @param $config
      *
-     * @return mixed
      * @throws Exception
+     * @return mixed
      */
     public static function __callStatic($name, $config)
     {

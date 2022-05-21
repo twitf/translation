@@ -93,12 +93,13 @@ class SougouGateway extends Gateway
             $cookieStr[]             = trim($key) . '=' . trim($value);
         }
         if ($isStr) {
-            $arr=[
+            $arr = [
                 'SUV=1650513461987408',
                 'SMYUV=1650513461988228',
                 'UM_distinctid=1804a44c2e8912-0dd2c2a7686497-142e1e05-1fa400-1804a44c2ea134c',
                 'SGINPUT_UPSCREEN=1652273179777',
             ];
+            return 'SUV=1650513461987408; SMYUV=1650513461988228; UM_distinctid=1804a44c2e8912-0dd2c2a7686497-142e1e05-1fa400-1804a44c2ea134c; ABTEST=0|1652273178|v17; SUID=EC1B9567D756A00A00000000627BB01A; wuid=1652273178588; SGINPUT_UPSCREEN=1652273179777; IPLOC=CN6101; SNUID=748B33482723F970BAFA9EE727FE5945; FUV=977be8a7a7ee2515aff2f76469b16b79; translate.sess=3622776f-c361-47ed-90bc-e0e58778f701; FQV=bca156e3e3b34dc6c6f87c955cae6ba3';
             return 'SUV=1650513461987408; SMYUV=1650513461988228; UM_distinctid=1804a44c2e8912-0dd2c2a7686497-142e1e05-1fa400-1804a44c2ea134c; ABTEST=0|1652273178|v17; SNUID=9A6DE3117573A8CEA59423D676BFF650; SUID=EC1B9567D756A00A00000000627BB01A; wuid=1652273178588; translate.sess=eb69d232-b6a8-4ef5-bd78-e94028611e81; SGINPUT_UPSCREEN=1652273179777; IPLOC=CN6101; FUV=779fc722f54eeaff882f908311a8a699';
             return implode('; ', array_merge($arr, $cookieStr));
         }
