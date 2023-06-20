@@ -1,0 +1,19 @@
+{
+    "name": "twitf/translation",
+    "description": "translation",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Twitf\\Translation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "twitf"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    }
+}
