@@ -6,5 +6,5 @@ namespace Twitf\Translation\Gateway;
 
 interface Translation
 {
-    public function translate();
+    public function translate(): string;
 }

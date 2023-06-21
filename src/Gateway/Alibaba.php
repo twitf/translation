@@ -9,7 +9,6 @@ class Alibaba implements Translation
 {
     public function translate(array $config = []): string
     {
-        var_dump($config);
-       return "阿里翻译";
+        return "阿里翻译";
     }
 }

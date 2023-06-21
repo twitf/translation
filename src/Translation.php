@@ -6,6 +6,7 @@ namespace Twitf\Translation;
 
 /**
  * @method static \Twitf\Translation\Gateway\Alibaba alibaba(array $config = [])
+ * @method static \Twitf\Translation\Gateway\Alibaba volcengine(array $config = [])
  */
 class Translation
 {
