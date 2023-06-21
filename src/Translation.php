@@ -18,16 +18,16 @@ class Translation
      */
     public static function make($name, $config = [])
     {
-        $value       = str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $name)));
-        $application = __NAMESPACE__ . '\\Gateway\\' . $value;
-        if (!class_exists($application)) {
-            throw new \Exception(sprintf("Class '%s' does not exist.", $application));
+        $value   = str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $name)));
+        $gateway = __NAMESPACE__ . '\\Gateway\\' . $value;
+        if (!class_exists($gateway)) {
+            throw new \Exception(sprintf("Class '%s' does not exist.", $gateway));
         }
-        return new $application($config);
+        return new $gateway($config);
     }
 
     /**
-     * Dynamically pass methods to the application.
+     *
      * @param $name
      * @param $arguments
      * @return mixed
