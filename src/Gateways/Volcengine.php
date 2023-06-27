@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Twitf\Translation\Gateways;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-
-
-class Volcengine implements Translation
+class Volcengine extends Gateway
 {
     /**
      *
@@ -21,7 +17,6 @@ class Volcengine implements Translation
      */
     public function translate(array $params = []): string
     {
-        $client  = new Client();
         $options = [
             'headers' => ['Content-Type' => 'application/json'],
             'json' => [
@@ -30,9 +25,9 @@ class Volcengine implements Translation
                 'text' => $params['text']
             ]
         ];
-        $uri     = 'https://translate.volcengine.com/crx/translate/v1';
-        $res     = $client->request('POST', $uri, $options);
-        $result  = json_decode($res->getBody()->getContents(), true);
+        $uri = 'https://translate.volcengine.com/crx/translate/v1';
+        $res = $this->request('POST', $uri, $options);
+        $result = json_decode($res->getBody()->getContents(), true);
         return $result['translation'];
     }
 }

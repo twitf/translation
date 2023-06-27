@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Twitf\Translation\Gateways;
 
-class Alibaba extends Gateway implements Translation
+class Alibaba extends Gateway
 {
     public function translate(array $params = []): string
     {

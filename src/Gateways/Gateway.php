@@ -6,7 +6,7 @@ namespace Twitf\Translation\Gateways;
 
 use Twitf\Translation\Utils\RequestTrait;
 
-class Gateway
+abstract class Gateway implements Translation
 {
     use RequestTrait;
 }
