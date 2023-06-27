@@ -6,14 +6,19 @@ namespace Twitf\Translation\Gateways;
 
 class Alibaba extends Gateway
 {
+    private array $cookie = [];
+
     public function translate(array $params = []): string
     {
+        $cookie = $this->getCookie("https://translate.alibaba.com/");
         $csrfToken = $this->getCsrfToken();
         $options = [
+            'cookies' => $cookie,
             'headers' => [
                 $csrfToken['headerName'] => $csrfToken['token'],
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0',
-                'host' => 'translate.alibaba.com',
+                'Origin' => 'https://translate.alibaba.com',
+                'Referer' => 'https://translate.alibaba.com'
             ],
             'multipart' => [
                 ['name' => 'srcLang', 'contents' => $params['source_language'] ?: "auto"],

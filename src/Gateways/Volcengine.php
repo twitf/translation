@@ -26,8 +26,7 @@ class Volcengine extends Gateway
             ]
         ];
         $uri = 'https://translate.volcengine.com/crx/translate/v1';
-        $res = $this->request('POST', $uri, $options);
-        $result = json_decode($res->getBody()->getContents(), true);
+        $result = $this->request('POST', $uri, $options);
         return $result['translation'];
     }
 }
